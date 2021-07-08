@@ -1,2 +1,2 @@
 # Serrano-Pozo Lab
-This repository houses the Serrano-Pozo Lab website, available at [www.serranopozolab.org](https://www.serranopozolab.org). The website was developed by [Ayush Noori](https://www.ayushnoori.com). We thank AJ at [HTML5 UP!](https://html5up.net/) for the responsive template.
+This repository houses the Serrano-Pozo Lab website, available at [www.serranopozolab.org](https://www.serranopozolab.org). The website was developed by [Ayush Noori](https://www.ayushnoori.com). We thank AJ at [HTML5 UP!](https://html5up.net/) for the responsive template and [Ville Karavirta](https://github.com/vkaravir) for the [interactive publication list](https://github.com/vkaravir/bib-publication-list) functionality.
