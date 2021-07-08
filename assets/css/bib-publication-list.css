@@ -18,7 +18,7 @@ span.undefined { color:red; }
 .legend { margin-bottom: 24px; text-align: center; width: 100%;}
 table.display thead th { padding: 3px 18px 3px 10px; font-weight: bold; cursor: pointer; cursor: hand; }
 table.display tfoot th { padding: 3px 10px; font-weight: bold; }
-table.display td { padding: 3px 10px; }
+/* table.display td { padding: 3px 10px; } */
 table.display td.center { text-align: center; }
 table.display { margin-top: 24px; }
 .sorting_asc { background: url('lib/images/sort_asc.png') no-repeat center right; }
@@ -61,3 +61,7 @@ div.bibinfo {
 }
 
 a.bibclose { display: none; }
+
+#pubTable_info {
+    padding-top: 1em;
+}
