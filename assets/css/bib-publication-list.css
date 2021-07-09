@@ -39,6 +39,10 @@ div.bibinfo pre { clear:both; }
     margin-top: 3em;
 }
 
+#pubTable {
+    width: 100% !important;
+}
+
 #bibtex { display: none; }
 
 .legend { display: none; }
