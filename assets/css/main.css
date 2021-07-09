@@ -4106,7 +4106,8 @@ input, select, textarea {
 				}
 
 				#footer .inner .copyright {
-					margin: 4em 0 2em 0;
+					/* margin: 4em 0 2em 0; */
+					margin: 4em 0 6em 0;
 				}
 
 	}
