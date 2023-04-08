@@ -2753,6 +2753,7 @@ var bibtexify = (function($) {
             }
             try {
                 var html = bib2html.entry2html(item, this);
+                // edited by Ayush Noori
                 bibentries.push([item.year, bib2html.labels[item.entryType], html]);
                 entryTypes[bib2html.labels[item.entryType]] = item.entryType;
                 this.updateStats(item);
@@ -2774,7 +2775,7 @@ var bibtexify = (function($) {
                               'aaSorting': this.options.sorting,
                               'aoColumns': [ { "sTitle": "Year" },
                                              { "sTitle": "Type", "sType": "type-sort", "asSorting": [ "desc", "asc" ] },
-                                             { "sTitle": "Publication", "bSortable": false }],
+                                             { "sTitle": "Reference", "bSortable": false }],
                               'bPaginate': false
                             }, this.options.datatable));
         if (this.options.visualization) {
