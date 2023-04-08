@@ -47,7 +47,7 @@ div.bibinfo pre { clear:both; }
 
 #bibtex { display: none; }
 
-.legend { display: true; }
+/* .legend { display: none; } */
 
 div.bibinfo pre {
     color: black;
