@@ -885,6 +885,12 @@ function BibTex(options)
 	this.htmlstring        = 'AUTHORS, "<strong>TITLE</strong>", <em>JOURNAL</em>, YEAR<br />';
 	this.allowedEntryTypes = array(
 		'article',
+
+        // added new types
+        'originalarticle',
+        'reviewarticle',
+        'editorialarticle',
+
 		'book',
 		'booklet',
 		'confernce',
@@ -1161,6 +1167,7 @@ BibTex.prototype = {
                 ret['editor'] = this._extractAuthors(ret['editor']);
             }
         }
+        console.log(ret['entryType']);
         return ret;
     },
 
@@ -1701,6 +1708,7 @@ BibTex.prototype = {
         var bibtex = '';
         for (var i=0 ; i<this.data.length; i++) {
         	var entry = this.data[i];
+            
             //Intro
             bibtex += '@'+strtolower(entry['entryType'])+' { '+entry['cite']+",\n";
             //Other fields except author
@@ -2569,10 +2577,19 @@ var bibtexify = (function($) {
         // adds the bibtex link and the opening div with bibtex content
         bibtex: function(entryData) {
             var itemStr = '';
+
+            // added by Ayush Noori
+            // if entryData.entryType is originalarticle, reviewarticle, or editorialarticle, replace with article
+            type = entryData.entryType;
+            // console.log(type);
+            if (type == 'originalarticle' || type == 'reviewarticle' || type == 'editorialarticle') {
+                type = 'article';
+            }
+
             itemStr += ' (<a title="This article as BibTeX" href="#" class="biblink">' +
                         'bib</a>)<div class="bibinfo hidden">';
             itemStr += '<a href="#" class="bibclose" title="Close">x</a><pre>';
-            itemStr += '@' + entryData.entryType + "{" + entryData.cite + ",\n";
+            itemStr += '@' + type + "{" + entryData.cite + ",\n";
             $.each(entryData, function(key, value) {
                 if (key == 'author') {
                     itemStr += '  author = { ';
@@ -2635,6 +2652,31 @@ var bibtexify = (function($) {
                 "pp. " + entryData.pages + ". " +
                 ((entryData.address)?entryData.address + ".":"") + "<\/em>";
         },
+
+        // add helper functions
+        originalarticle: function(entryData) {
+            return this.authors2html(entryData.author) + " (" + entryData.year + "). " +
+                entryData.title + ". <em>" + entryData.journal + ", " + entryData.volume +
+                ((entryData.number)?"(" + entryData.number + ")":"")+ ", " +
+                "pp. " + entryData.pages + ". " +
+                ((entryData.address)?entryData.address + ".":"") + "<\/em>";
+        },
+        reviewarticle: function(entryData) {
+            return this.authors2html(entryData.author) + " (" + entryData.year + "). " +
+                entryData.title + ". <em>" + entryData.journal + ", " + entryData.volume +
+                ((entryData.number)?"(" + entryData.number + ")":"")+ ", " +
+                "pp. " + entryData.pages + ". " +
+                ((entryData.address)?entryData.address + ".":"") + "<\/em>";
+        },
+        editorialarticle: function(entryData) {
+            return this.authors2html(entryData.author) + " (" + entryData.year + "). " +
+                entryData.title + ". <em>" + entryData.journal + ", " + entryData.volume +
+                ((entryData.number)?"(" + entryData.number + ")":"")+ ", " +
+                "pp. " + entryData.pages + ". " +
+                ((entryData.address)?entryData.address + ".":"") + "<\/em>";
+        },
+
+
         misc: function(entryData) {
             return this.authors2html(entryData.author) + " (" + entryData.year + "). " +
                 entryData.title + ". " +
@@ -2689,6 +2731,12 @@ var bibtexify = (function($) {
             'proceedings': 60,
             'conference': 70,
             'article': 80,
+
+            // added by Ayush Noori
+            'originalarticle': 80,
+            'reviewarticle': 80,
+            'editorialarticle': 80,
+
             'phdthesis': 90,
             'inbook': 100,
             'proceedings': 105,
@@ -2698,6 +2746,12 @@ var bibtexify = (function($) {
         // labels used for the different types of entries
         labels: {
             'article': 'Journal',
+
+            // added by Ayush Noori
+            'originalarticle': 'Original Article',
+            'reviewarticle': 'Review Article',
+            'editorialarticle': 'Editorial',
+
             'book': 'Book',
             'conference': 'Conference',
             'inbook': 'Book Chapter',
@@ -2753,7 +2807,7 @@ var bibtexify = (function($) {
             }
             try {
                 var html = bib2html.entry2html(item, this);
-                // edited by Ayush Noori
+                console.log(bib2html.labels[item.entryType]);
                 bibentries.push([item.year, bib2html.labels[item.entryType], html]);
                 entryTypes[bib2html.labels[item.entryType]] = item.entryType;
                 this.updateStats(item);
